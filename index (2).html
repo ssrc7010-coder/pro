@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SSRC CONVERTER PRO</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Exo+2:wght@300;400;600;800&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="logo-block">
+      <div class="logo-icon">⚡</div>
+      <div class="logo-text">
+        <span class="logo-main">SSRC</span>
+        <span class="logo-sub">CONVERTER PRO</span>
+      </div>
+    </div>
+    <nav class="main-nav">
+      <button class="nav-btn active" data-tab="converter">🔄 File Converter</button>
+      <button class="nav-btn" data-tab="compressor">🗜️ Compressor</button>
+      <button class="nav-btn" data-tab="esevai">🏛️ Esevai</button>
+      <button class="nav-btn" data-tab="pancard">🪪 PAN Card</button>
+      <button class="nav-btn" data-tab="pdfocr">📄 PDF OCR Editor</button>
+      <button class="nav-btn" data-tab="dpi">🖨️ DPI Converter</button>
+    </nav>
+    <div class="header-contact">
+      <a href="tel:9042389819">📞 9042389819</a>
+      <a href="mailto:ssrc7010@gmail.com">✉️ ssrc7010@gmail.com</a>
+    </div>
+  </div>
+</header>
+
+<main class="main-content">
+
+  <!-- ============ TAB: FILE CONVERTER ============ -->
+  <section class="tab-panel active" id="tab-converter">
+    <div class="panel-header">
+      <h2>Universal File Converter</h2>
+      <p>Convert any file format to your desired output format</p>
+    </div>
+    <div class="converter-grid">
+      <div class="drop-zone" id="converter-drop">
+        <div class="drop-icon">📁</div>
+        <p class="drop-title">Drop Any File Here</p>
+        <p class="drop-sub">or click to browse</p>
+        <input type="file" id="converter-input" hidden multiple/>
+        <button class="browse-btn" onclick="document.getElementById('converter-input').click()">Browse Files</button>
+      </div>
+      <div class="converter-options">
+        <div class="format-select-block">
+          <label>Convert To Format:</label>
+          <select id="output-format" class="format-select">
+            <optgroup label="Images">
+              <option value="jpeg">JPEG</option>
+              <option value="png">PNG</option>
+              <option value="webp">WEBP</option>
+              <option value="gif">GIF</option>
+              <option value="bmp">BMP</option>
+            </optgroup>
+            <optgroup label="Documents">
+              <option value="pdf">PDF</option>
+              <option value="txt">TXT</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="quality-block">
+          <label>Quality: <span id="quality-val">90</span>%</label>
+          <input type="range" id="quality-slider" min="10" max="100" value="90"/>
+        </div>
+        <button class="action-btn convert-btn" id="convert-btn" disabled>⚡ Convert & Download</button>
+        <div class="file-list" id="converter-file-list"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TAB: COMPRESSOR ============ -->
+  <section class="tab-panel" id="tab-compressor">
+    <div class="panel-header">
+      <h2>File Size Compressor</h2>
+      <p>Compress any file format to reduce size while maintaining quality</p>
+    </div>
+    <div class="converter-grid">
+      <div class="drop-zone" id="compressor-drop">
+        <div class="drop-icon">🗜️</div>
+        <p class="drop-title">Drop Any File Here</p>
+        <p class="drop-sub">Images, PDFs, Documents</p>
+        <input type="file" id="compressor-input" hidden multiple accept="image/*,.pdf"/>
+        <button class="browse-btn" onclick="document.getElementById('compressor-input').click()">Browse Files</button>
+      </div>
+      <div class="converter-options">
+        <div class="target-size-block">
+          <label>Target Size (KB):</label>
+          <input type="number" id="target-size" class="num-input" value="200" min="10" max="10000"/>
+        </div>
+        <div class="quality-block">
+          <label>Quality: <span id="comp-quality-val">80</span>%</label>
+          <input type="range" id="comp-quality-slider" min="10" max="100" value="80"/>
+        </div>
+        <button class="action-btn compress-btn" id="compress-btn" disabled>🗜️ Compress & Download</button>
+        <div class="file-list" id="compressor-file-list"></div>
+        <div class="result-info" id="compress-result"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TAB: ESEVAI ============ -->
+  <section class="tab-panel" id="tab-esevai">
+    <div class="panel-header">
+      <h2>🏛️ Esevai Services</h2>
+      <p>Tamil Nadu e-Seva — Photo & Document Processor</p>
+    </div>
+    <div class="esevai-grid">
+      <!-- Photo Tool -->
+      <div class="service-card">
+        <div class="service-icon">🖼️</div>
+        <h3>Photo Processor</h3>
+        <p class="service-spec">250×250 px · below 50 KB · JPEG</p>
+        <div class="drop-zone small-drop" id="esevai-photo-drop">
+          <div class="drop-icon small">📷</div>
+          <p>Drop / Click to Upload Photo</p>
+          <input type="file" id="esevai-photo-input" hidden accept="image/*"/>
+        </div>
+        <div class="auto-badge">⚡ Auto-Process & Download</div>
+        <div class="result-info" id="esevai-photo-result"></div>
+      </div>
+      <!-- Document Tool -->
+      <div class="service-card">
+        <div class="service-icon">📄</div>
+        <h3>Document Compressor</h3>
+        <p class="service-spec">below 200 KB · JPEG output</p>
+        <div class="drop-zone small-drop" id="esevai-doc-drop">
+          <div class="drop-icon small">📑</div>
+          <p>Drop / Click to Upload Document</p>
+          <input type="file" id="esevai-doc-input" hidden accept="image/*,.pdf"/>
+        </div>
+        <div class="auto-badge">⚡ Auto-Process & Download</div>
+        <div class="result-info" id="esevai-doc-result"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TAB: PAN CARD ============ -->
+  <section class="tab-panel" id="tab-pancard">
+    <div class="panel-header">
+      <h2>🪪 PAN Card Services</h2>
+      <p>NSDL / UTIITSL compliant photo & signature processing</p>
+    </div>
+    <div class="esevai-grid">
+      <!-- PAN Photo -->
+      <div class="service-card pan-card">
+        <div class="service-icon">🧑‍💼</div>
+        <h3>PAN Photo</h3>
+        <p class="service-spec">213×213 px · 300 DPI · below 30 KB · JPEG</p>
+        <div class="drop-zone small-drop" id="pan-photo-drop">
+          <div class="drop-icon small">📸</div>
+          <p>Drop / Click to Upload Photo</p>
+          <input type="file" id="pan-photo-input" hidden accept="image/*"/>
+        </div>
+        <div class="auto-badge gold">⚡ Auto-Process & Download</div>
+        <div class="result-info" id="pan-photo-result"></div>
+      </div>
+      <!-- PAN Signature -->
+      <div class="service-card pan-card">
+        <div class="service-icon">✍️</div>
+        <h3>PAN Signature</h3>
+        <p class="service-spec">600 DPI · below 60 KB · JPEG</p>
+        <div class="drop-zone small-drop" id="pan-sig-drop">
+          <div class="drop-icon small">🖊️</div>
+          <p>Drop / Click to Upload Signature</p>
+          <input type="file" id="pan-sig-input" hidden accept="image/*"/>
+        </div>
+        <div class="auto-badge gold">⚡ Auto-Process & Download</div>
+        <div class="result-info" id="pan-sig-result"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TAB: PDF OCR EDITOR ============ -->
+  <section class="tab-panel" id="tab-pdfocr">
+    <div class="panel-header">
+      <h2>📄 PDF OCR Editor</h2>
+      <p>Upload, view, annotate and edit PDF documents</p>
+    </div>
+    <div class="pdf-editor-layout">
+      <div class="pdf-sidebar">
+        <div class="drop-zone small-drop" id="pdf-drop">
+          <div class="drop-icon small">📄</div>
+          <p>Drop / Click to Upload PDF</p>
+          <input type="file" id="pdf-input" hidden accept=".pdf,image/*"/>
+        </div>
+        <div class="pdf-tools">
+          <p class="tools-label">Edit Tools</p>
+          <button class="tool-btn active" data-tool="select" id="tool-select">↖ Select</button>
+          <button class="tool-btn" data-tool="text" id="tool-text">T Text</button>
+          <button class="tool-btn" data-tool="highlight" id="tool-highlight">🖍 Highlight</button>
+          <button class="tool-btn" data-tool="draw" id="tool-draw">✏️ Draw</button>
+          <button class="tool-btn" data-tool="erase" id="tool-erase">🧹 Erase</button>
+          <button class="tool-btn" data-tool="rect" id="tool-rect">▭ Rectangle</button>
+          <button class="tool-btn" data-tool="circle" id="tool-circle">○ Circle</button>
+          <div class="tool-separator"></div>
+          <label>Font Size</label>
+          <input type="number" id="font-size" value="16" min="8" max="72" class="num-input small-input"/>
+          <label>Color</label>
+          <input type="color" id="text-color" value="#000000" class="color-input"/>
+          <label>Stroke</label>
+          <input type="color" id="stroke-color" value="#ff0000" class="color-input"/>
+          <div class="tool-separator"></div>
+          <button class="action-btn small-btn" id="undo-btn">↩ Undo</button>
+          <button class="action-btn small-btn" id="redo-btn">↪ Redo</button>
+          <div class="tool-separator"></div>
+          <button class="action-btn download-btn" id="pdf-download-btn" disabled>⬇️ Download PDF</button>
+          <button class="action-btn small-btn" id="pdf-clear-btn">🗑 Clear All</button>
+        </div>
+        <div class="page-nav" id="page-nav" style="display:none">
+          <button id="prev-page">◀</button>
+          <span id="page-info">Page 1 / 1</span>
+          <button id="next-page">▶</button>
+        </div>
+      </div>
+      <div class="pdf-canvas-area">
+        <div class="pdf-placeholder" id="pdf-placeholder">
+          <div class="placeholder-icon">📄</div>
+          <p>Upload a PDF to start editing</p>
+        </div>
+        <canvas id="pdf-render-canvas" style="display:none"></canvas>
+        <canvas id="fabric-canvas" style="display:none; position:absolute; top:0; left:0;"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TAB: DPI CONVERTER ============ -->
+  <section class="tab-panel" id="tab-dpi">
+    <div class="panel-header">
+      <h2>🖨️ DPI Converter</h2>
+      <p>Convert JPEG image DPI without changing visual quality</p>
+    </div>
+    <div class="converter-grid">
+      <div class="drop-zone" id="dpi-drop">
+        <div class="drop-icon">🖨️</div>
+        <p class="drop-title">Drop JPEG Image Here</p>
+        <p class="drop-sub">or click to browse</p>
+        <input type="file" id="dpi-input" hidden accept="image/jpeg,image/jpg,image/*"/>
+        <button class="browse-btn" onclick="document.getElementById('dpi-input').click()">Browse Image</button>
+      </div>
+      <div class="converter-options">
+        <div class="format-select-block">
+          <label>Target DPI:</label>
+          <select id="target-dpi" class="format-select">
+            <option value="72">72 DPI (Screen/Web)</option>
+            <option value="96">96 DPI (Standard Screen)</option>
+            <option value="150">150 DPI (Draft Print)</option>
+            <option value="200">200 DPI (Medium Print)</option>
+            <option value="300" selected>300 DPI (High Quality Print)</option>
+            <option value="600">600 DPI (Professional Print)</option>
+            <option value="1200">1200 DPI (Ultra High)</option>
+          </select>
+        </div>
+        <div class="dpi-info-box">
+          <p>📌 Current DPI: <span id="current-dpi">—</span></p>
+          <p>📌 Output DPI: <span id="output-dpi">300</span></p>
+          <p>📌 File: <span id="dpi-filename">None selected</span></p>
+        </div>
+        <button class="action-btn convert-btn" id="dpi-convert-btn" disabled>🖨️ Convert DPI & Download</button>
+        <div class="result-info" id="dpi-result"></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="logo-main">SSRC</span><span class="logo-sub"> CONVERTER PRO</span>
+    </div>
+    <div class="footer-links">
+      <a href="tel:9042389819">📞 9042389819</a>
+      <a href="mailto:ssrc7010@gmail.com">✉️ ssrc7010@gmail.com</a>
+    </div>
+    <p class="footer-copy">© 2024 SSRC Converter Pro. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- TOAST NOTIFICATION -->
+<div class="toast" id="toast"></div>
+
+<!-- LOADING OVERLAY -->
+<div class="loading-overlay" id="loading-overlay" style="display:none">
+  <div class="spinner"></div>
+  <p id="loading-text">Processing...</p>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
